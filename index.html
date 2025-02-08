@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -254,7 +255,7 @@
             text-align: center;
             padding: 20px;
             overflow-x: hidden;
-            overflow-y: auto; 
+            overflow-y: auto;
             margin: 0;
         }
 
@@ -655,6 +656,7 @@
 
             let stars = [];
             const numStars = 250;
+            let animationFrameId;
 
             function createStars() {
                 stars = [];
@@ -694,13 +696,24 @@
 
             function animateStars() {
                 drawStars();
-                requestAnimationFrame(animateStars);
+                animationFrameId = requestAnimationFrame(animateStars);
             }
 
-            createStars();
-            animateStars();
+            function startAnimation() {
+                cancelAnimationFrame(animationFrameId);
+                createStars();
+                animateStars();
+            }
 
-            // === 2. Туманности ===
+            document.addEventListener("visibilitychange", function () {
+                if (document.visibilityState === "visible") {
+                    startAnimation();
+                }
+            });
+
+            startAnimation();
+
+            // === 2. Туманность ===
             const nebulaCanvas = document.createElement("canvas");
             nebulaCanvas.id = "nebula-canvas";
             document.body.appendChild(nebulaCanvas);
@@ -731,11 +744,12 @@
 
             function animateNebula() {
                 drawNebula();
-                setTimeout(animateNebula, 50);
+                requestAnimationFrame(animateNebula);
             }
 
             animateNebula();
         });
     </script>
     </body>
+
 </html>
