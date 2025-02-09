@@ -124,9 +124,9 @@
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2em;
-                padding-top: 30px;
+                padding-top: 10px;
                 /* Ещё ниже на мобильных */
-                padding-bottom: 15px;
+                padding-bottom: 5px;
             }
         }
 
@@ -654,7 +654,7 @@
                         if (scale >= 2.5) {
                             jumpPhase = 1;
                             numStars = 200;
-                            baseSpeed = 6;
+                            baseSpeed = 3;
                             hyperJumpActive = true;
                             createStars();
                         }
@@ -665,7 +665,7 @@
                             jumpPhase = 0;
                             setTimeout(() => {
                                 numStars = 100;
-                                baseSpeed = 2;
+                                baseSpeed = 1;
                                 hyperJumpActive = false;
                                 createStars();
                             }, 30);
