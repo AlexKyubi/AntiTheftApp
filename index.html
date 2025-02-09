@@ -6,63 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>АнтиВор – Инструкция</title>
     <style>
-        .animated-drop {
-            opacity: 0;
-            /* Скрываем перед анимацией */
-            animation: rainDrop 0.8s ease-out forwards;
-        }
-
-        .footer {
-            margin-top: 30px;
-            padding: 10px;
-            background: transparent !important;
-            /* Насильно убираем фон */
-            color: #80ff66;
-            font-size: 14px;
+        /* === ОСНОВНЫЕ СТИЛИ === */
+        body {
+            margin: 0;
+            padding: 20px;
+            color: #fbfdff;
+            font-family: 'Courier New', Courier, monospace;
             text-align: center;
-            font-weight: bold;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
 
-
-        .footer-label {
-            color: #00bfff;
-            /* Ярко-голубой */
+        /* === ФОН === */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('Univers.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+            animation: infiniteZoomRotate 300s linear infinite;
         }
 
-        .footer-link {
-            color: #00bfff;
-            /* Голубая ссылка */
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s ease-in-out;
-        }
-
-        .footer-link:hover {
-            color: #ffcc00;
-            /* Желтая подсветка */
-            text-shadow: 0 0 10px #ffcc00;
-            transform: scale(1.1);
-            /* Увеличение */
-            text-decoration: underline;
-        }
-
-
-        /* 🔹 Анимация заголовка */
-        @keyframes securityGlow {
+        /* === АНИМАЦИИ === */
+        @keyframes infiniteZoomRotate {
             0% {
-                text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #0088ff;
+                transform: scale(1) rotate(0deg);
             }
 
             50% {
-                text-shadow: 0 0 10px #0088ff, 0 0 20px #ff00d9, 0 0 25px #0047ab;
+                transform: scale(2) rotate(-8deg);
             }
 
             100% {
-                text-shadow: 0 0 5px #00ff00, 0 0 10px #8c00ff, 0 0 15px #0088ff;
+                transform: scale(1) rotate(0deg);
             }
         }
 
-        /* 🔹 Дополнительная анимация для "мигания" */
+        @keyframes fadeInDrop {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes securityGlow {
+            0% {
+                text-shadow: 0 0 15px #00ff00, 0 0 10px #00ff00, 0 0 15px #0088ff;
+            }
+
+            50% {
+                text-shadow: 0 0 20px #0088ff, 0 0 20px #ff00d9, 0 0 25px #0047ab;
+            }
+
+            100% {
+                text-shadow: 0 0 15px #00ff00, 0 0 10px #8c00ff, 0 0 15px #0088ff;
+            }
+        }
+
         @keyframes securityBlink {
 
             0%,
@@ -75,128 +85,36 @@
             }
         }
 
-        /* 🔹 Применяем анимацию к заголовку */
+        /* === ЗАГОЛОВОК (H1) === */
         h1 {
             text-align: center;
             font-size: 2em;
             color: #66ff00;
-            /* Неоново-зелёный */
             text-shadow: 0 0 10px #0088ff;
             cursor: pointer;
             animation: securityGlow 3s infinite alternate, securityBlink 1.5s infinite ease-in-out;
             transition: 0.3s;
         }
 
-        /* 🔹 Ховер-эффект для дополнительной интерактивности */
         h1:hover {
             color: #ff8400;
             transform: scale(1.05);
         }
 
-
-
-        /* �� Заголовок контейнера */
-        .responsive-code {
-            display: inline-block;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            white-space: normal;
-            font-size: 0.9em;
-            max-width: 100%;
-            /* Ограничение ширины */
-        }
-
-
-        /* 🔹 Карточка инструкции */
-        .instruction-card {
-            background: rgba(20, 30, 60, 0.9);
-            /* Глубокий синий */
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: background 0.3s ease-in-out, transform 0.2s;
-            box-shadow: 0 0 10px rgba(0, 102, 204, 0.5);
-            /* Синее свечение */
-        }
-
-        .instruction-card:hover {
-            background: rgba(30, 40, 70, 0.9);
-            transform: scale(1.02);
-        }
-
-        /* 🔹 Заголовок инструкции */
-        .instruction-card .instruction-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            color: #80ff66;
-            /* Ярко-зелёный */
-            transition: 0.3s;
-        }
-
-        .instruction-title:hover {
-            color: #99ddff;
-        }
-
-        /* 🔹 Внутренний контент инструкции */
-        .instruction-content {
+        /* === СКРЫТИЕ КОНТЕНТА === */
+        .hide-content .instruction-card,
+        .hide-content .button-container,
+        .hide-content h1 {
             display: none;
-            padding-top: 10px;
-            font-size: 1em;
-            text-align: left;
         }
 
-        /* 🔹 Вложенные подинструкции */
-        .sub-toggle-content {
-            display: none;
-            margin-left: 15px;
-            padding: 10px;
-            border-left: 3px solid #00aaff;
-            /* Голубая полоска слева */
-            background: rgba(40, 50, 90, 0.2);
-            /* Лёгкий фон */
-            border-radius: 5px;
+        /* === АНИМИРОВАННЫЕ ЭЛЕМЕНТЫ === */
+        .animated-drop {
+            opacity: 0;
+            animation: fadeInDrop 0.8s ease-out forwards;
         }
 
-        /* 🔹 Выравнивание текста в подинструкциях */
-        .sub-toggle-content p {
-            text-align: left;
-        }
-
-        /* 🔹 Добавляем маркеры перед подинструкциями */
-        .instruction-card ul {
-            list-style: none;
-            padding-left: 10px;
-        }
-
-        .instruction-card ul li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 5px;
-        }
-
-        .instruction-card ul li::before {
-            content: "▶";
-            /* Значок перед каждым пунктом */
-            position: absolute;
-            left: 0;
-            color: #00aaff;
-            font-size: 1.1em;
-        }
-
-
-        /* 🔹 Иконка раскрытия (вращение) */
-        .toggle-icon {
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .open .toggle-icon {
-            transform: rotate(180deg);
-        }
-
-        /* 🔹 Кнопка */
+        /* === КНОПКИ === */
         .button-container {
             text-align: center;
             margin-top: 20px;
@@ -222,88 +140,110 @@
             transform: scale(1.1);
         }
 
-        /* === Основные стили === */
-        body {
-            margin: 0;
-            padding: 0;
-            color: #fbfdff;
-            font-family: 'Courier New', Courier, monospace;
-            text-align: center;
-            padding: 20px;
-            text-align: center;
-            overflow-x: hidden;
+        /* === ИНСТРУКЦИИ === */
+        .instruction-card {
+            background: rgba(20, 30, 60, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out, transform 0.2s;
+            box-shadow: 0 0 10px rgba(0, 102, 204, 0.5);
+        }
+
+        .instruction-card:hover {
+            background: rgba(30, 40, 70, 0.9);
+            transform: scale(1.02);
+        }
+
+        /* === ЗАГОЛОВКИ ИНСТРУКЦИЙ === */
+        .instruction-title,
+        .instruction-card .instruction-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            color: #80ff66;
+            transition: 0.3s;
+        }
+
+        .instruction-title:hover {
+            color: #99ddff;
+        }
+
+        /* === ВНУТРЕННИЙ КОНТЕНТ ИНСТРУКЦИИ === */
+        .instruction-content {
+            display: none;
+            padding-top: 10px;
+            font-size: 1em;
+            text-align: left;
+        }
+
+        /* === ПОДИНСТРУКЦИИ === */
+        .sub-toggle-content {
+            display: none;
+            margin-left: 15px;
+            padding: 10px;
+            border-left: 3px solid #00aaff;
+            background: rgba(40, 50, 90, 0.2);
+            border-radius: 5px;
+        }
+
+        /* === СТИЛИ ТЕКСТА В ПОДИНСТРУКЦИЯХ === */
+        .sub-toggle-content p {
+            text-align: left;
+        }
+
+        /* === МАРКЕРЫ ПЕРЕД ПОДИНСТРУКЦИЯМИ === */
+        .instruction-card ul {
+            list-style: none;
+            padding-left: 10px;
+        }
+
+        .instruction-card ul li {
             position: relative;
-            min-height: 100vh;
+            padding-left: 20px;
+            margin-bottom: 5px;
         }
 
-        /* === Фоновый элемент (для приближения) === */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
+        .instruction-card ul li::before {
+            content: "▶";
+            position: absolute;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('Univers.jpg') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed;
-            z-index: -1;
-            transform-origin: center;
-            animation: zoomBackground 60s infinite alternate ease-in-out;
+            color: #00aaff;
+            font-size: 1.1em;
         }
 
-        /* === Анимация приближения фона === */
-        @keyframes zoomBackground {
-            0% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(1.2);
-            }
+        /* === ПОДВАЛ === */
+        .footer {
+            margin-top: 30px;
+            padding: 10px;
+            background: transparent !important;
+            color: #80ff66;
+            font-size: 14px;
+            text-align: center;
+            font-weight: bold;
         }
 
-        /* === Анимация появления (плавное выпадение вместо случайного) === */
-        @keyframes fadeInDrop {
-            0% {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .footer-label {
+            color: #00bfff;
         }
 
-        /* === Применяем анимацию появления ко всем элементам === */
-        .animated-drop {
-            opacity: 0;
-            animation: fadeInDrop 0.8s ease-out forwards;
+        .footer-link {
+            color: #00bfff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s ease-in-out;
         }
 
-        /* === Исправление масштабирования на мобильных === */
-        @media (max-width: 768px) {
-            body::before {
-                background-attachment: scroll;
-                /* Фикс бага в iOS Safari */
-                animation: zoomBackgroundMobile 60s infinite alternate ease-in-out;
-            }
-
-            @keyframes zoomBackgroundMobile {
-                0% {
-                    transform: scale(1);
-                }
-
-                100% {
-                    transform: scale(1.1);
-                    /* Уменьшаем эффект приближения на мобильных */
-                }
-            }
+        .footer-link:hover {
+            color: #ffcc00;
+            text-shadow: 0 0 10px #ffcc00;
+            transform: scale(1.1);
+            text-decoration: underline;
         }
 
-
-        /* Контейнер для анимации */
+        /* === АНИМАЦИЯ ГАЛАКТИКИ === */
         #galaxy-canvas,
         #nebula-canvas {
             position: fixed;
@@ -313,18 +253,6 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
-        }
-
-        .hide-content .instruction-card,
-        .hide-content .button-container,
-        .hide-content h1 {
-            display: none;
-        }
-
-        /* Подвал остаётся */
-        .footer {
-            opacity: 1;
-            transition: opacity 0.5s;
         }
     </style>
 
@@ -618,44 +546,11 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            let instructionTitles = document.querySelectorAll(".instruction-title");
-
-            instructionTitles.forEach(title => {
+            // === 1. Раскрытие инструкций с сохранением состояния ===
+            function toggleContent(title, contentClass, storagePrefix) {
                 title.addEventListener("click", function (event) {
                     event.stopPropagation();
-                    let content = this.nextElementSibling;
-
-                    if (content && content.classList.contains("instruction-content")) {
-                        let isOpen = content.style.display === "block";
-                        content.style.display = isOpen ? "none" : "block";
-
-                        let icon = this.querySelector(".toggle-icon");
-                        if (icon) {
-                            icon.innerHTML = isOpen ? "⬇️" : "⬆️";
-                        }
-
-                        // Сохраняем состояние в LocalStorage
-                        let instructionKey = "instruction-" + this.textContent.trim();
-                        localStorage.setItem(instructionKey, content.style.display);
-                    }
-                });
-
-                // Загружаем состояние из LocalStorage
-                let instructionKey = "instruction-" + title.textContent.trim();
-                if (localStorage.getItem(instructionKey) === "block") {
-                    let content = title.nextElementSibling;
-                    if (content) content.style.display = "block";
-                    let icon = title.querySelector(".toggle-icon");
-                    if (icon) icon.innerHTML = "⬆️";
-                }
-            });
-
-            let subInstructionTitles = document.querySelectorAll(".sub-instruction-title");
-
-            subInstructionTitles.forEach(title => {
-                title.addEventListener("click", function (event) {
-                    event.stopPropagation();
-                    let content = this.closest("li").querySelector(".sub-toggle-content");
+                    let content = this.closest("li")?.querySelector(contentClass) || this.nextElementSibling;
 
                     if (content) {
                         let isOpen = content.style.display === "block";
@@ -666,169 +561,139 @@
                             icon.innerHTML = isOpen ? "⬇️" : "⬆️";
                         }
 
-                        // Сохраняем состояние в LocalStorage
-                        let subInstructionKey = "sub-instruction-" + this.textContent.trim();
-                        localStorage.setItem(subInstructionKey, content.style.display);
+                        // Сохранение состояния в localStorage
+                        localStorage.setItem(storagePrefix + this.textContent.trim(), content.style.display);
                     }
                 });
 
-                // Загружаем состояние из LocalStorage
-                let subInstructionKey = "sub-instruction-" + title.textContent.trim();
-                if (localStorage.getItem(subInstructionKey) === "block") {
-                    let content = title.closest("li").querySelector(".sub-toggle-content");
+                let savedState = localStorage.getItem(storagePrefix + title.textContent.trim());
+                if (savedState === "block") {
+                    let content = title.closest("li")?.querySelector(contentClass) || title.nextElementSibling;
                     if (content) content.style.display = "block";
                     let icon = title.querySelector(".toggle-icon");
-                    if (icon) icon.innerHTML = "▼";
+                    if (icon) icon.innerHTML = "⬆️";
                 }
-            });
-        });
+            }
 
+            document.querySelectorAll(".instruction-title").forEach(title =>
+                toggleContent(title, ".instruction-content", "instruction-")
+            );
+            document.querySelectorAll(".sub-instruction-title").forEach(title =>
+                toggleContent(title, ".sub-toggle-content", "sub-instruction-")
+            );
 
-        document.addEventListener("DOMContentLoaded", function () {
-            let elements = document.querySelectorAll(".instruction-card, .button-container, .footer, h1");
-
-            elements.forEach((element, index) => {
-                let delay = Math.random() * 0.5 + index * 0.2; // Рандомная задержка для естественного эффекта
-                element.style.animationDelay = delay + "s";
+            // === 2. Анимация появления контента ===
+            document.querySelectorAll(".instruction-card, .button-container, .footer, h1").forEach((element, index) => {
+                element.style.animationDelay = (Math.random() * 0.5 + index * 0.2) + "s";
                 element.classList.add("animated-drop");
             });
-        });
 
+            // === 3. Анимация звездного фона ===
+            function createStarCanvas() {
+                const canvas = document.createElement("canvas");
+                canvas.id = "galaxy-canvas";
+                document.body.appendChild(canvas);
+                const ctx = canvas.getContext("2d");
 
-        document.addEventListener("DOMContentLoaded", function () {
-            // === 1. Звезды ===
-            const canvas = document.createElement("canvas");
-            canvas.id = "galaxy-canvas";
-            document.body.appendChild(canvas);
-            const ctx = canvas.getContext("2d");
-
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-
-            window.addEventListener("resize", resizeCanvas);
-            resizeCanvas();
-
-            let stars = [];
-            const numStars = 250;
-            let animationFrameId;
-
-            function createStars() {
-                stars = [];
-                for (let i = 0; i < numStars; i++) {
-                    stars.push({
-                        x: Math.random() * canvas.width - canvas.width / 2,
-                        y: Math.random() * canvas.height - canvas.height / 2,
-                        z: Math.random() * canvas.width,
-                        speed: Math.random() * 2 + 0.5,
-                        size: Math.random() * 3 + 1
-                    });
+                function resizeCanvas() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
                 }
-            }
 
-            function drawStars() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let star of stars) {
-                    let k = 128.0 / star.z;
-                    let sx = star.x * k + canvas.width / 2;
-                    let sy = star.y * k + canvas.height / 2;
-                    let radius = star.size * k * 0.5;
+                window.addEventListener("resize", resizeCanvas);
+                resizeCanvas();
 
-                    if (sx < 0 || sx > canvas.width || sy < 0 || sy > canvas.height) {
-                        star.x = Math.random() * canvas.width - canvas.width / 2;
-                        star.y = Math.random() * canvas.height - canvas.height / 2;
-                        star.z = canvas.width;
+                let stars = [];
+                const numStars = 500;
+
+                function createStars() {
+                    stars = [];
+                    for (let i = 0; i < numStars; i++) {
+                        stars.push({
+                            x: Math.random() * canvas.width - canvas.width / 2,
+                            y: Math.random() * canvas.height - canvas.height / 2,
+                            z: Math.random() * canvas.width,
+                            speed: Math.random() * 2 + 0.5,
+                            size: Math.random() * 3 + 1
+                        });
                     }
-
-                    star.z -= star.speed;
-
-                    ctx.beginPath();
-                    ctx.arc(sx, sy, radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.8 + 0.2})`;
-                    ctx.fill();
                 }
-            }
 
-            function animateStars() {
-                drawStars();
-                animationFrameId = requestAnimationFrame(animateStars);
-            }
+                function drawStars() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (let star of stars) {
+                        let k = 128.0 / star.z;
+                        let sx = star.x * k + canvas.width / 2;
+                        let sy = star.y * k + canvas.height / 2;
+                        let radius = star.size * k * 0.5;
 
-            function startAnimation() {
-                cancelAnimationFrame(animationFrameId);
+                        if (sx < 0 || sx > canvas.width || sy < 0 || sy > canvas.height) {
+                            star.x = Math.random() * canvas.width - canvas.width / 2;
+                            star.y = Math.random() * canvas.height - canvas.height / 2;
+                            star.z = canvas.width;
+                        }
+
+                        star.z -= star.speed;
+
+                        ctx.beginPath();
+                        ctx.arc(sx, sy, radius, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.8 + 0.2})`;
+                        ctx.fill();
+                    }
+                }
+
+                function animateStars() {
+                    drawStars();
+                    requestAnimationFrame(animateStars);
+                }
+
                 createStars();
                 animateStars();
             }
 
-            // Перезапуск анимации каждые 30 секунд
-            setInterval(startAnimation, 30000);
+            createStarCanvas();
 
-            document.addEventListener("visibilitychange", function () {
-                if (document.visibilityState === "visible") {
-                    startAnimation();
+            // === 4. Анимация туманности ===
+            function createNebulaCanvas() {
+                const nebulaCanvas = document.createElement("canvas");
+                nebulaCanvas.id = "nebula-canvas";
+                document.body.appendChild(nebulaCanvas);
+                const nebulaCtx = nebulaCanvas.getContext("2d");
+
+                function resizeNebulaCanvas() {
+                    nebulaCanvas.width = window.innerWidth;
+                    nebulaCanvas.height = window.innerHeight;
                 }
-            });
 
-            startAnimation();
+                window.addEventListener("resize", resizeNebulaCanvas);
+                resizeNebulaCanvas();
 
-            // === 2. Туманность ===
-            const nebulaCanvas = document.createElement("canvas");
-            nebulaCanvas.id = "nebula-canvas";
-            document.body.appendChild(nebulaCanvas);
-            const nebulaCtx = nebulaCanvas.getContext("2d");
+                function drawNebula() {
+                    nebulaCtx.clearRect(0, 0, nebulaCanvas.width, nebulaCanvas.height);
+                    let gradient = nebulaCtx.createRadialGradient(
+                        nebulaCanvas.width / 2, nebulaCanvas.height / 2, 50,
+                        nebulaCanvas.width / 2, nebulaCanvas.height / 2, nebulaCanvas.width / 1.5
+                    );
 
-            function resizeNebulaCanvas() {
-                nebulaCanvas.width = window.innerWidth;
-                nebulaCanvas.height = window.innerHeight;
+                    gradient.addColorStop(0, "rgba(120, 60, 150, 0.6)");
+                    gradient.addColorStop(0.5, "rgba(60, 30, 120, 0.3)");
+                    gradient.addColorStop(1, "rgba(0, 0, 30, 0)");
+
+                    nebulaCtx.fillStyle = gradient;
+                    nebulaCtx.fillRect(0, 0, nebulaCanvas.width, nebulaCanvas.height);
+                }
+
+                function animateNebula() {
+                    drawNebula();
+                    requestAnimationFrame(animateNebula);
+                }
+
+                animateNebula();
             }
 
-            window.addEventListener("resize", resizeNebulaCanvas);
-            resizeNebulaCanvas();
-
-            function drawNebula() {
-                nebulaCtx.clearRect(0, 0, nebulaCanvas.width, nebulaCanvas.height);
-                let gradient = nebulaCtx.createRadialGradient(
-                    nebulaCanvas.width / 2, nebulaCanvas.height / 2, 50,
-                    nebulaCanvas.width / 2, nebulaCanvas.height / 2, nebulaCanvas.width / 1.5
-                );
-
-                gradient.addColorStop(0, "rgba(120, 60, 150, 0.6)");
-                gradient.addColorStop(0.5, "rgba(60, 30, 120, 0.3)");
-                gradient.addColorStop(1, "rgba(0, 0, 30, 0)");
-
-                nebulaCtx.fillStyle = gradient;
-                nebulaCtx.fillRect(0, 0, nebulaCanvas.width, nebulaCanvas.height);
-            }
-
-            function animateNebula() {
-                drawNebula();
-                requestAnimationFrame(animateNebula);
-            }
-
-            animateNebula();
+            createNebulaCanvas();
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const title = document.querySelector("h1");
-            let hideTimeout;
-
-            title.addEventListener("mousedown", function () {
-                hideTimeout = setTimeout(() => {
-                    document.body.classList.add("hide-content");
-                }, 1000); // Задержка 1 сек перед скрытием контента
-            });
-
-            title.addEventListener("mouseup", function () {
-                clearTimeout(hideTimeout);
-                document.body.classList.remove("hide-content");
-            });
-
-            title.addEventListener("mouseleave", function () {
-                clearTimeout(hideTimeout);
-                document.body.classList.remove("hide-content");
-            });
-        });
     </script>
     </body>
 
