@@ -28,35 +28,6 @@
             /* Для IE/Edge */
         }
 
-        /* === ФОН === */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 110%;
-            height: 110%;
-            height: 100vh;
-            background: url('Univers.jpg') no-repeat center center;
-            background-size: cover;
-            z-index: -1;
-            animation: infiniteZoomRotate 300s linear infinite;
-        }
-
-        /* === АНИМАЦИИ === */
-        @keyframes infiniteZoomRotate {
-            0% {
-                transform: scale(1) rotate(0deg);
-            }
-
-            50% {
-                transform: scale(2) rotate(-8deg);
-            }
-
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
-        }
 
         @keyframes fadeInDrop {
             0% {
@@ -70,54 +41,102 @@
             }
         }
 
-        @keyframes securityGlow {
-            0% {
-                text-shadow: 0 0 15px #00ff00, 0 0 10px #00ff00, 0 0 15px #0088ff;
-            }
-
-            50% {
-                text-shadow: 0 0 20px #0088ff, 0 0 20px #ff00d9, 0 0 25px #0047ab;
-            }
-
-            100% {
-                text-shadow: 0 0 15px #00ff00, 0 0 10px #8c00ff, 0 0 15px #0088ff;
-            }
+        /* === ФОН С ЗВЕЗДАМИ БЕЗ ИЗОБРАЖЕНИЙ === */
+        .starry-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(20, 20, 40, 1) 10%, black 80%);
+            overflow: hidden;
+            z-index: -1;
         }
 
-        @keyframes securityBlink {
+        /* Маленькие звезды */
+        .stars {
+            width: 1px;
+            height: 1px;
+            background: white;
+            box-shadow:
+                100px 200px white, 300px 400px white, 500px 700px white,
+                800px 120px white, 1200px 300px white, 1500px 600px white,
+                200px 800px white, 400px 1000px white, 900px 200px white,
+                1300px 400px white, 1600px 700px white, 1800px 100px white;
+            animation: twinkle 3s infinite alternate ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
 
-            0%,
+        /* Анимация мерцания звезд */
+        @keyframes twinkle {
+            0% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+
             100% {
                 opacity: 1;
-            }
-
-            50% {
-                opacity: 0.8;
+                transform: scale(1.2);
             }
         }
 
-        /* === ЗАГОЛОВОК (H1) === */
+        /* === ШАПКА С ЭФФЕКТОМ ЭЛЕКТРИЧЕСТВА === */
         h1 {
+            position: relative;
             text-align: center;
-            font-size: 2em;
-            color: #66ff00;
-            text-shadow: 0 0 10px #0088ff;
-            cursor: pointer;
-            animation: securityGlow 3s infinite alternate, securityBlink 1.5s infinite ease-in-out;
-            transition: 0.3s;
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 15px #00ccff, 0 0 30px #33ffcc;
+            letter-spacing: 2px;
+            padding: 50px 20px;
+            animation: glowPulse 2s infinite alternate, electricFlow 3s infinite linear;
+            transition: transform 0.3s ease-in-out;
         }
 
-        h1:hover {
-            color: #ff8400;
-            transform: scale(1.05);
+
+
+        /* === ПУЛЬСИРУЮЩЕЕ СВЕЧЕНИЕ НЕОНА === */
+        @keyframes glowPulse {
+            0% {
+                text-shadow: 0 0 10px #00ccff, 0 0 20px #33ffcc;
+            }
+
+            100% {
+                text-shadow: 0 0 25px #00ffff, 0 0 40px #99ffcc;
+            }
         }
 
-        /* === СКРЫТИЕ КОНТЕНТА === */
-        .hide-content .instruction-card,
-        .hide-content .button-container,
-        .hide-content h1 {
-            display: none;
+        /* === НЕПРЕРЫВНЫЙ ПОТОК ЭНЕРГИИ === */
+        @keyframes electricFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 100% 50%;
+            }
         }
+
+        /* === АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ === */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+                padding: 80px 10px;
+                letter-spacing: 1px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+                padding: 60px 10px;
+            }
+        }
+
+
 
         /* === АНИМИРОВАННЫЕ ЭЛЕМЕНТЫ === */
         .animated-drop {
@@ -259,24 +278,12 @@
             transform: scale(1.1);
             text-decoration: underline;
         }
-
-        /* === АНИМАЦИЯ ГАЛАКТИКИ === */
-        #galaxy-canvas,
-        #nebula-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
     </style>
 
 
     </body>
-    <h1>📜 АнтиВор </h1>
-    <h1>Полная Инструкция.</h1>
+    <h1> АнтиВор – Полная Инструкция</h1>
+
     <!-- 🔹 Подготовка ноутбука -->
     <div class="instruction-card">
         <div class="instruction-title">🔹 Подготовка ноутбука <span class="toggle-icon">⬇️</span></div>
@@ -390,7 +397,7 @@
                         <li>Нажмите <b>Win + R</b></li>
                         <li>Введите <code>regedit</code> и нажмите Enter</li>
                         <li>📌 Путь для проверки настроек:
-                            <code class="responsive-code">Компьютер\HKEY_LOCAL_MACHINE\SOFTWARE\AntiTheftapp</code>
+                            <code>Компьютер\HKEY_LOCAL_MACHINE\SOFTWARE\AntiTheftapp</code>
                         </li>
                 </li>
             </ul>
@@ -568,29 +575,22 @@
         document.addEventListener("DOMContentLoaded", function () {
             // === 1. Раскрытие инструкций с сохранением состояния ===
             function toggleContent(title, contentClass, storagePrefix) {
+                const content = title.closest("li")?.querySelector(contentClass) || title.nextElementSibling;
+                const icon = title.querySelector(".toggle-icon");
+                const storageKey = storagePrefix + title.textContent.trim();
+
                 title.addEventListener("click", function (event) {
                     event.stopPropagation();
-                    let content = this.closest("li")?.querySelector(contentClass) || this.nextElementSibling;
+                    if (!content) return;
 
-                    if (content) {
-                        let isOpen = content.style.display === "block";
-                        content.style.display = isOpen ? "none" : "block";
-
-                        let icon = this.querySelector(".toggle-icon");
-                        if (icon) {
-                            icon.innerHTML = isOpen ? "⬇️" : "⬆️";
-                        }
-
-                        // Сохранение состояния в localStorage
-                        localStorage.setItem(storagePrefix + this.textContent.trim(), content.style.display);
-                    }
+                    const isOpen = content.style.display === "block";
+                    content.style.display = isOpen ? "none" : "block";
+                    if (icon) icon.innerHTML = isOpen ? "⬇️" : "⬆️";
+                    localStorage.setItem(storageKey, content.style.display);
                 });
 
-                let savedState = localStorage.getItem(storagePrefix + title.textContent.trim());
-                if (savedState === "block") {
-                    let content = title.closest("li")?.querySelector(contentClass) || title.nextElementSibling;
-                    if (content) content.style.display = "block";
-                    let icon = title.querySelector(".toggle-icon");
+                if (localStorage.getItem(storageKey) === "block" && content) {
+                    content.style.display = "block";
                     if (icon) icon.innerHTML = "⬆️";
                 }
             }
@@ -604,117 +604,137 @@
 
             // === 2. Анимация появления контента ===
             document.querySelectorAll(".instruction-card, .button-container, .footer, h1").forEach((element, index) => {
-                element.style.animationDelay = (Math.random() * 0.5 + index * 0.2) + "s";
+                element.style.animationDelay = `${(Math.random() * 0.5 + index * 0.2).toFixed(2)}s`;
                 element.classList.add("animated-drop");
             });
 
-            // === 3. Анимация звездного фона ===
+            // === 3. Фоновая анимация звезд ===
             function createStarCanvas() {
                 const canvas = document.createElement("canvas");
                 canvas.id = "galaxy-canvas";
+                Object.assign(canvas.style, {
+                    position: "fixed",
+                    top: "0", left: "0",
+                    width: "100%", height: "100%",
+                    zIndex: "-1"
+                });
                 document.body.appendChild(canvas);
+
                 const ctx = canvas.getContext("2d");
+                const bgImage = new Image();
+                bgImage.src = "Univers.jpg";
+
+                let stars = [], width, height;
+                let numStars = 350, baseSpeed = 2, scale = 1;
+                let jumpPhase = 0, jumpTimer = 0, hyperJumpActive = false;
+                let animationFrameId;
 
                 function resizeCanvas() {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
+                    width = canvas.width = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
+                    createStars();
                 }
 
-                window.addEventListener("resize", resizeCanvas);
-                resizeCanvas();
-
-                let stars = [];
-                const numStars = 350;
-
                 function createStars() {
-                    stars = [];
-                    for (let i = 0; i < numStars; i++) {
-                        stars.push({
-                            x: Math.random() * canvas.width - canvas.width / 2,
-                            y: Math.random() * canvas.height - canvas.height / 2,
-                            z: Math.random() * canvas.width,
-                            speed: Math.random() * 2 + 0.5,
-                            size: Math.random() * 3 + 1
-                        });
+                    stars = Array.from({ length: numStars }, () => ({
+                        x: Math.random() * width - width / 2,
+                        y: Math.random() * height - height / 2,
+                        z: Math.random() * width,
+                        speed: Math.random() * baseSpeed + 0.5,
+                        size: Math.random() * 3 + 1
+                    }));
+                }
+
+                function drawBackground() {
+                    ctx.drawImage(bgImage, (width - width * scale) / 2, (height - height * scale) / 2, width * scale, height * scale);
+
+                    if (jumpPhase === 0) {
+                        scale = Math.min(scale + 0.0005, 2.5);
+                        if (scale >= 2.5) {
+                            jumpPhase = 1;
+                            numStars = 200;
+                            baseSpeed = 6;
+                            hyperJumpActive = true;
+                            createStars();
+                        }
+                    } else if (jumpPhase === 1) {
+                        jumpTimer++;
+                        scale = Math.max(scale - 0.0125, 1);
+                        if (scale === 1) {
+                            jumpPhase = 0;
+                            setTimeout(() => {
+                                numStars = 100;
+                                baseSpeed = 2;
+                                hyperJumpActive = false;
+                                createStars();
+                            }, 30);
+                        }
                     }
                 }
 
                 function drawStars() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    for (let star of stars) {
-                        let k = 128.0 / star.z;
-                        let sx = star.x * k + canvas.width / 2;
-                        let sy = star.y * k + canvas.height / 2;
-                        let radius = star.size * k * 0.5;
+                    ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+                    ctx.fillRect(0, 0, width, height);
 
-                        if (sx < 0 || sx > canvas.width || sy < 0 || sy > canvas.height) {
-                            star.x = Math.random() * canvas.width - canvas.width / 2;
-                            star.y = Math.random() * canvas.height - canvas.height / 2;
-                            star.z = canvas.width;
+                    stars.forEach(star => {
+                        const k = 256.0 / star.z;
+                        const sx = star.x * k + width / 2;
+                        const sy = star.y * k + height / 2;
+                        const radius = star.size * k * 0.2;
+
+                        if (sx < 0 || sx > width || sy < 0 || sy > height) {
+                            Object.assign(star, {
+                                x: Math.random() * width - width / 2,
+                                y: Math.random() * height - height / 2,
+                                z: width
+                            });
                         }
 
                         star.z -= star.speed;
 
+                        const tailX = sx - (star.x / star.z) * 10 * star.speed;
+                        const tailY = sy - (star.y / star.z) * 10 * star.speed;
+
+                        const gradient = ctx.createLinearGradient(tailX, tailY, sx, sy);
+                        gradient.addColorStop(0, "rgba(255, 255, 255, 0)");
+                        gradient.addColorStop(0.3, "rgba(255, 255, 255, 0.8)");
+                        gradient.addColorStop(1, "rgba(255, 255, 255, 1)");
+
+                        ctx.beginPath();
+                        ctx.moveTo(tailX, tailY);
+                        ctx.lineTo(sx, sy);
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = radius * 1.2;
+                        ctx.stroke();
+
+                        const starGradient = ctx.createRadialGradient(sx, sy, 0, sx, sy, radius * 2);
+                        starGradient.addColorStop(0, "rgba(255, 255, 255, 1)");
+                        starGradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+
                         ctx.beginPath();
                         ctx.arc(sx, sy, radius, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.8 + 0.2})`;
+                        ctx.fillStyle = starGradient;
                         ctx.fill();
-                    }
+                    });
                 }
 
-                function animateStars() {
+                function animate() {
+                    drawBackground();
                     drawStars();
-                    requestAnimationFrame(animateStars);
+                    animationFrameId = requestAnimationFrame(animate);
                 }
 
-                createStars();
-                animateStars();
+                window.addEventListener("resize", resizeCanvas);
+                bgImage.onload = () => {
+                    resizeCanvas();
+                    animate();
+                };
             }
 
             createStarCanvas();
-
-            // === 4. Анимация туманности ===
-            function createNebulaCanvas() {
-                const nebulaCanvas = document.createElement("canvas");
-                nebulaCanvas.id = "nebula-canvas";
-                document.body.appendChild(nebulaCanvas);
-                const nebulaCtx = nebulaCanvas.getContext("2d");
-
-                function resizeNebulaCanvas() {
-                    nebulaCanvas.width = window.innerWidth;
-                    nebulaCanvas.height = window.innerHeight;
-                }
-
-                window.addEventListener("resize", resizeNebulaCanvas);
-                resizeNebulaCanvas();
-
-                function drawNebula() {
-                    nebulaCtx.clearRect(0, 0, nebulaCanvas.width, nebulaCanvas.height);
-                    let gradient = nebulaCtx.createRadialGradient(
-                        nebulaCanvas.width / 2, nebulaCanvas.height / 2, 50,
-                        nebulaCanvas.width / 2, nebulaCanvas.height / 2, nebulaCanvas.width / 1.5
-                    );
-
-                    gradient.addColorStop(0, "rgba(120, 60, 150, 0.6)");
-                    gradient.addColorStop(0.5, "rgba(60, 30, 120, 0.3)");
-                    gradient.addColorStop(1, "rgba(0, 0, 30, 0)");
-
-                    nebulaCtx.fillStyle = gradient;
-                    nebulaCtx.fillRect(0, 0, nebulaCanvas.width, nebulaCanvas.height);
-                }
-
-                function animateNebula() {
-                    drawNebula();
-                    requestAnimationFrame(animateNebula);
-                }
-
-                animateNebula();
-            }
-
-            createNebulaCanvas();
         });
-
     </script>
+
     </body>
 
 </html>
