@@ -705,6 +705,9 @@
                 animateStars();
             }
 
+            // Перезапуск анимации каждые 30 секунд
+            setInterval(startAnimation, 30000);
+
             document.addEventListener("visibilitychange", function () {
                 if (document.visibilityState === "visible") {
                     startAnimation();
