@@ -82,7 +82,6 @@
             }
         }
 
-        /* === ШАПКА С ЭФФЕКТОМ ЭЛЕКТРИЧЕСТВА === */
         h1 {
             position: relative;
             text-align: center;
@@ -91,11 +90,12 @@
             color: #ffffff;
             text-shadow: 0 0 15px #00ccff, 0 0 30px #33ffcc;
             letter-spacing: 2px;
-            padding: 50px 20px;
-            animation: glowPulse 2s infinite alternate, electricFlow 3s infinite linear;
-            transition: transform 0.3s ease-in-out;
+            padding-top: 40px;
+            /* Уменьшаем отступ сверху */
+            padding-bottom: 10px;
+            /* Чуть увеличиваем отступ снизу */
+            animation: glowPulse 2s infinite alternate;
         }
-
 
 
         /* === ПУЛЬСИРУЮЩЕЕ СВЕЧЕНИЕ НЕОНА === */
@@ -120,12 +120,13 @@
             }
         }
 
-        /* === АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ === */
+        /* АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2em;
-                padding: 80px 10px;
-                letter-spacing: 1px;
+                padding-top: 30px;
+                /* Ещё ниже на мобильных */
+                padding-bottom: 15px;
             }
         }
 
@@ -625,7 +626,7 @@
                 bgImage.src = "Univers.jpg";
 
                 let stars = [], width, height;
-                let numStars = 350, baseSpeed = 2, scale = 1;
+                let numStars = 100, baseSpeed = 2, scale = 1;
                 let jumpPhase = 0, jumpTimer = 0, hyperJumpActive = false;
                 let animationFrameId;
 
