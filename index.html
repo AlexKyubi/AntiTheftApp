@@ -668,29 +668,31 @@
             }
 
             function drawBackground() {
-                ctx.clearRect(0, 0, width, height); // Очищаем перед отрисовкой
+                ctx.clearRect(0, 0, width, height); // Очищаем холст перед рисованием
+
                 let imgRatio = bgImage.width / bgImage.height;
                 let canvasRatio = width / height;
 
                 let drawWidth, drawHeight;
 
+                // Вычисляем правильные размеры для сохранения пропорций
                 if (canvasRatio > imgRatio) {
-                    // Если ширина холста больше, чем пропорции изображения
-                    drawWidth = width;
-                    drawHeight = width / imgRatio;
+                    drawWidth = width * scale;  // Масштабируем ширину
+                    drawHeight = (width / imgRatio) * scale;
                 } else {
-                    // Если высота холста больше, чем пропорции изображения
-                    drawHeight = height;
-                    drawWidth = height * imgRatio;
+                    drawHeight = height * scale; // Масштабируем высоту
+                    drawWidth = (height * imgRatio) * scale;
                 }
 
                 let offsetX = (width - drawWidth) / 2;
                 let offsetY = (height - drawHeight) / 2;
 
+                // Отрисовываем фон с плавным масштабированием
                 ctx.drawImage(bgImage, offsetX, offsetY, drawWidth, drawHeight);
 
+                // Анимация приближения (гиперскачок)
                 if (jumpPhase === 0) {
-                    scale = Math.min(scale + 0.0005, 2.5);
+                    scale = Math.min(scale + 0.002, 2.5); // Увеличиваем масштаб
                     if (scale >= 2.5) {
                         jumpPhase = 1;
                         numStars = 200;
@@ -700,7 +702,7 @@
                     }
                 } else if (jumpPhase === 1) {
                     jumpTimer++;
-                    scale = Math.max(scale - 0.0125, 1);
+                    scale = Math.max(scale - 0.008, 1); // Плавное уменьшение масштаба
                     if (scale === 1) {
                         jumpPhase = 0;
                         setTimeout(() => {
