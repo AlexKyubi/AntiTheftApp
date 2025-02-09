@@ -101,22 +101,11 @@
 
         /* 🔹 Ховер-эффект для дополнительной интерактивности */
         h1:hover {
-            color: #7c0855;
+            color: #ff8400;
             transform: scale(1.05);
         }
 
-        /* 🔹 Основной контейнер */
-        .container {
-            max-width: 90%;
-            margin: auto;
-            padding: 20px;
-            border-radius: 15px;
-            background: rgba(10, 15, 50, 0.9);
-            /* Глубокий синий */
-            box-shadow: 0px 0px 20px #0047ab;
-            /* Ярко-синее свечение */
-            text-align: left;
-        }
+
 
         /* �� Заголовок контейнера */
         .responsive-code {
@@ -245,18 +234,43 @@
             transform: scale(1.1);
         }
 
-        /* 🔹 Основные стили страницы */
         body {
-            background-color: #000000;
-            /* Глубокий тёмно-синий */
+            margin: 0;
+            padding: 0;
             color: #fbfdff;
-            /* Светло-голубой текст */
             font-family: 'Courier New', Courier, monospace;
             text-align: center;
-            padding: 20px;
             overflow-x: hidden;
-            overflow-y: auto;
-            margin: 0;
+            position: relative;
+            min-height: 100vh;
+            /* Гарантия, что фон растянется */
+        }
+
+        /* Фоновый элемент */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('Univers.jpg') no-repeat center center fixed;
+            background-size: cover;
+            z-index: -1;
+            transform-origin: center;
+            animation: zoomBackground 60s infinite alternate ease-in-out;
+        }
+
+        /* Анимация приближения */
+        @keyframes zoomBackground {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.4);
+                /* Фон увеличивается на 40% */
+            }
         }
 
         /* Контейнер для анимации */
@@ -269,6 +283,18 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
+        }
+
+        .hide-content .instruction-card,
+        .hide-content .button-container,
+        .hide-content h1 {
+            display: none;
+        }
+
+        /* Подвал остаётся */
+        .footer {
+            opacity: 1;
+            transition: opacity 0.5s;
         }
     </style>
 
@@ -751,6 +777,27 @@
             }
 
             animateNebula();
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const title = document.querySelector("h1");
+            let hideTimeout;
+
+            title.addEventListener("mousedown", function () {
+                hideTimeout = setTimeout(() => {
+                    document.body.classList.add("hide-content");
+                }, 1000); // Задержка 1 сек перед скрытием контента
+            });
+
+            title.addEventListener("mouseup", function () {
+                clearTimeout(hideTimeout);
+                document.body.classList.remove("hide-content");
+            });
+
+            title.addEventListener("mouseleave", function () {
+                clearTimeout(hideTimeout);
+                document.body.classList.remove("hide-content");
+            });
         });
     </script>
     </body>
