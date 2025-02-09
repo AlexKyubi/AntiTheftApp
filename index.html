@@ -17,6 +17,15 @@
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
+            overflow-y: auto;
+            user-select: none;
+            /* Запрещает выделение текста */
+            -webkit-user-select: none;
+            /* Для Safari */
+            -moz-user-select: none;
+            /* Для Firefox */
+            -ms-user-select: none;
+            /* Для IE/Edge */
         }
 
         /* === ФОН === */
@@ -147,14 +156,20 @@
             background: rgba(20, 30, 60, 0.9);
             padding: 15px;
             border-radius: 10px;
-            margin-top: 10px;
+            margin: 10px auto;
+            /* Центрирование и отступы сверху/снизу */
+            width: 90%;
+            /* Ограничение ширины */
+            max-width: 800px;
+            /* Максимальная ширина */
             cursor: pointer;
             transition: background 0.3s ease-in-out, transform 0.2s;
-            box-shadow: 0 0 10px rgba(0, 102, 204, 0.5);
+            box-shadow: 0 0 10px rgba(95, 181, 247, 0.8);
         }
 
+
         .instruction-card:hover {
-            background: rgba(30, 40, 70, 0.9);
+            background: rgba(28, 55, 137, 0.9);
             transform: scale(1.02);
         }
 
@@ -211,7 +226,7 @@
         .instruction-card ul li::before {
             content: "▶";
             position: absolute;
-            botton: 0;
+            bottom: 0;
             left: 0;
             color: #00aaff;
             font-size: 1.1em;
@@ -260,7 +275,7 @@
     </style>
 
 
-
+    </body>
     <h1>📜 АнтиВор – Полная Инструкция </h1>
     <!-- 🔹 Подготовка ноутбука -->
     <div class="instruction-card">
@@ -276,7 +291,9 @@
 
     <!-- 🔧 Установка АнтиВор -->
     <div class="instruction-card">
-        <div class="instruction-title">🔧 Установка АнтиВор <span class="toggle-icon">⬇️</span></div>
+        <div class="instruction-title">
+            🔧 Установка АнтиВор <span class="toggle-icon">⬇️</span>
+        </div>
         <div class="instruction-content">
             <a href="https://disk.yandex.com/i/jAGn3J1bGVI3VA"
                 style="color: #ff0000; font-weight: bold; text-decoration: none;">
