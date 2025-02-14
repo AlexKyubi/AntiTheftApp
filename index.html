@@ -703,7 +703,7 @@
 
                 // Анимация приближения (гиперскачок)
                 if (jumpPhase === 0) {
-                    scale = Math.min(scale + 0.0002, 2.5); // Увеличиваем масштаб
+                    scale = Math.min(scale + 0.0001, 2.5); // Увеличиваем масштаб
                     if (scale >= 2.5) {
                         jumpPhase = 1;
                         numStars = 200;
