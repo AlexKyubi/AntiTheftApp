@@ -274,6 +274,17 @@
             padding-bottom: 5px;
             /* Отступ снизу */
         }
+
+        code {
+            white-space: nowrap;
+            /* Запрещает перенос строк */
+
+            max-width: 100%;
+            /* Ограничивает ширину */
+            font-size: min(1rem, 2vw);
+            /* Уменьшает шрифт при нехватке места */
+
+        }
     </style>
 
 </head>
@@ -692,11 +703,11 @@
 
                 // Анимация приближения (гиперскачок)
                 if (jumpPhase === 0) {
-                    scale = Math.min(scale + 0.0005, 2.5); // Увеличиваем масштаб
+                    scale = Math.min(scale + 0.0002, 2.5); // Увеличиваем масштаб
                     if (scale >= 2.5) {
                         jumpPhase = 1;
-                        numStars = 150;
-                        baseSpeed = 4;
+                        numStars = 200;
+                        baseSpeed = 6;
                         hyperJumpActive = true;
                         createStars();
                     }
